@@ -30,6 +30,7 @@ try {
 }
 catch (thisIsNotAChromeApp) {
     browserApi = false;
+    
 }
 
 if (typeof app != 'undefined') // android app // android app
@@ -174,7 +175,7 @@ function loadPreferences()
 
 function showSettings() 
 {
-    _("settings").style.display = "block";
+ _("settings").style.display = "block";
     CustomStorage.getVar("username", function (e) 
     {
         _("suser").value = e.username;
@@ -189,30 +190,30 @@ function showSettings()
     });
     CustomStorage.getVar("fanart", function (e) 
     {
-		e.fanart=(e.fanart==null)?"false":e.fanart;
-        _("fanart").checked = (e.fanart!="false")?true:false;    
-		
-	});
+        _("fanart").checked = (e.fanart!="false" && e.fanart!=false)?true:false;    });
 
 	CustomStorage.getVar("feisbuk", function (e) 
     {
-		e.feisbuk=(e.feisbuk==null)?"false":e.feisbuk;
-        _("publishonfacebook").checked = (e.feisbuk!="false")?true:false;
+        _("publishonfacebook").checked = (e.feisbuk!=false && e.feisbuk!="false")?true:false;;;
     });
 
 	CustomStorage.getVar("uselyrics", function (e) 
     {
-		e.uselyrics=(e.uselyrics==null)?"false":e.uselyrics;
-        _("uselyrics").checked = (e.uselyrics!="false")?true:false;;
+        _("uselyrics").checked = (e.uselyrics!="false" && e.uselyrics!=false)?true:false;;
     });
 
 	CustomStorage.getVar("useInternalProxy", function (e) 
     {
-		e.useInternalProxy=(e.useInternalProxy==null)?"false":e.useInternalProxy;
-		_("useInternalProxy").checked = (e.useInternalProxy!="false")?true:false;
+        _("useInternalProxy").checked = (e.useInternalProxy!="false" && e.useInternalProxy!=false )?true:false;
     });
 
 
+     if (!browserApi) {
+         _("useInternalProxy").checked=false;
+          _("publishonfacebook").checked=false;
+         
+     }
+     
     _("SaveSettings").onclick = function () 
     {
         CustomStorage.setVar("url", _("surl").value, function (e)  {
@@ -238,10 +239,16 @@ function showSettings()
         
 			CustomStorage.setVar("username", _("suser").value, function (e) {
                 CustomStorage.setVar("password", _("spass").value, function (e) {
-					
+					CustomStorage.setVar("fanart", _("fanart").checked, function (e) {
+						CustomStorage.setVar("feisbuk", _("publishonfacebook").checked, function (e) {
+							CustomStorage.setVar("uselyrics", _("uselyrics").checked, function (e) {
+								CustomStorage.setVar("useInternalProxy", _("useInternalProxy").checked=="true", function (e) {
 									closeSettings();
 								});		
-				
+							});		
+						});		
+					});
+				});
 			});
 		});
     }

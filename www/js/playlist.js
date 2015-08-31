@@ -57,7 +57,7 @@ function loadPlayList()
             "sAlbum" : "Album" 
         } ],
 		"aLengthMenu" : [[5,10,25,50,-1], [5, 10, 25,50, "All"]],
-		"iDisplayLength":10,
+		"iDisplayLength":5,
     } );
     $("#playlistContent_paginate").on("click", "a", function () 
     {
