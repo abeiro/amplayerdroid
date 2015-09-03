@@ -537,7 +537,7 @@ function initSystem() {
 				|| el.mozRequestFullScreen
 				rfs.call(el);
 	
-				this.isFullScreen=true;s
+				this.isFullScreen=true;
 		} else {
 			if (document.exitFullscreen) {
 				document.exitFullscreen();
