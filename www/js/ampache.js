@@ -428,10 +428,10 @@ function disposeElements() {
         
 	if (window.innerWidth > window.innerHeight) {
 		_('showCanvasImg').style.width = "100%";
-                _('showCanvasImg').style.height = "auto";
+                _('showCanvasImg').style.height = "100%";
 	} else {
 		_('showCanvasImg').style.height = "100%";
-                _('showCanvasImg').style.width = "auto";
+                _('showCanvasImg').style.width = "100%";
 	}
 	try {
             _('playlistContent').style.width = (window.innerWidth - 5) + "px";

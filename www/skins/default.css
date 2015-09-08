@@ -224,13 +224,11 @@ html:fullscreen {
 }
 
 #cLike {
-	/*background-image:url(../img/like.png);
-	background-position:center left;
-	background-repeat: no-repeat;
 	
 	margin: 0px;
 	padding: 0px;
-	bottom: 0px;*/
+	bottom: 0px;
+        background-color:white;
 }
 
 #lyricsCanvas {
