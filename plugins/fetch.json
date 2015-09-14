@@ -5,5 +5,12 @@
             "url": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
             "subdir": "."
         }
+    },
+    "at.gofg.sportscomputer.powermanagement": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Viras-/cordova-plugin-powermanagement.git",
+            "subdir": "."
+        }
     }
 }
