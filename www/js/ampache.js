@@ -255,11 +255,18 @@ AMPACHE.prototype.localplay = function (songnumber) {
 	
 	markSong(currentSong);
 
+	$("#infoCanvas").hide();
+	$("#lyricsCanvas").hide();
+	try {
+				showInfo();
+	}  catch (idontcare) {}	
 	
 		if (gUseLyrics) {
 			console.log("Fetching lyrics");
-			$("#lyricsCanvas").hide()
-			extractLyrics();
+			try {
+					extractLyrics();
+			}	
+			catch (idontcare) {}
 		} else
 			console.log("uselyrics is false");
 	
@@ -362,6 +369,7 @@ AMPACHE.prototype.loadArt = function (song_mbid) {
 						fanUrl="http://api.fanart.tv/webservice/artist/" + FANARTAPIKEY + "/" + dataSong["artist-credit"][0].artist.id + "/JSON/artistbackground"
 					else
 						fanUrl="proxy.php?url="+encodeURIComponent("http://api.fanart.tv/webservice/artist/" + FANARTAPIKEY + "/" + dataSong["artist-credit"][0].artist.id + "/JSON/artistbackground");
+                                        
 					$.getJSON(fanUrl,
 						function (dataSong) {
 							CustomStorage.setVar("cache_" + song_mbid, dataSong,function (e) {console.log(e)});
@@ -402,7 +410,7 @@ function markSong(i) {
 		});
 		_("s" + i).parentNode.parentNode.style.textDecoration = "underline";
 	} catch (idontcare) {
-		console.log(idontcare);
+		//console.log(idontcare);
 	}
 }
 
@@ -527,7 +535,12 @@ function initSystem() {
 		$("#lyricsCanvas").toggle();
 	});
 	
+	_("cInfo").addEventListener("click", function () {
+		
+		$("#infoCanvas").toggle();
 
+	});
+	
 	_("fullScreenButton").addEventListener("click", function () {
 		if (!this.isFullScreen) {
 			var el = document.documentElement
@@ -577,7 +590,7 @@ function initSystem() {
 
 	window.setInterval(function() {conn._ping()},1000*600);
 
-	if ((browserApi != false)) {
+	if ((browserApi )) {
 		try {
 			/* Tracker */
 			service = analytics.getService('Ampache Player');
