@@ -12,5 +12,11 @@
             "url": "https://github.com/Viras-/cordova-plugin-powermanagement.git",
             "subdir": "."
         }
+    },
+    "org.apache.cordova.inappbrowser": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.inappbrowser"
+        }
     }
 }

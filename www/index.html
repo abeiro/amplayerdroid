@@ -28,6 +28,8 @@
 	<script src="js/skin.js"></script>
 	<script src="js/playlist.js"></script>
 	<script src="js/lyrics.js"></script>
+	<script src="js/lastfm.js"></script>
+        <script src="js/jquery.tagcanvas.min.js"></script>
 
 
 	  
@@ -38,6 +40,7 @@
 				<h2 id="artist"></h2>
 				<h3 id="album"></h3>
 				<img src="" style='position: absolute; top: 0px; right: 0px' id="art" />
+				<h3 id="nextTitle"></h3>
 			</div>
 			<hr>
 			<div style="position:relative">
@@ -48,15 +51,16 @@
 			<select id="playlistselect"></select>
 			
 			<div id="toolbar">
-				<span id="cPrev">PREV</span> :: 
-				<span id="cNext">NEXT</span> ::
-				<span id="cRandomPl">RAND PLAYLIST</span> ::
-				<span id="cSettings">SETTINGS</span> ::
-				<span id="cReload">RELOAD</span> ::
-				<span id="cLike">&nbsp;&hearts;&nbsp;</span> ::
-				<span id="cShow">SHOW</span> :: 
-				<span id="cLyrics">LYR</span> ::
-				<span id="cInfo">INFO</span>
+				<span id="cPrev"></span>
+				<span id="cNext"></span>
+				<span id="cRandomPl"></span>
+				<span id="cSettings"></span>
+				<span id="cReload"></span>
+				<span id="cLike"></span>
+				<span id="cShow"></span>
+				<span id="cLyrics"></span>
+				<span id="cInfo"></span>
+				<span id="cLastFM" title="Activate last.FM scrobbling"></span>
 			</div>
 			<div id="playlist"></div>
 			
@@ -69,7 +73,9 @@
 				<img id="infoCanvasImg"></img>
 				<div id="infoCanvasReal"></div>
 			</div>
-			
+			<canvas width="300" height="300" id="myCanvas">
+                            <p>Anything in here will be replaced on browsers that support the canvas element</p>
+                        </canvas>
 		</div>
 		<div id="fullScreenButton" title="Toggle Fullscreen"><img src="images/fogull.png" /></div>
 
@@ -82,7 +88,7 @@
 				Use fanart.tv artist images (note this can increase bandwith) <input type="checkbox" id="fanart" name="fanart" value="fanart"><br />
 				Fetch lyrics from http://lyrics.wikia.com/ <input type="checkbox" id="uselyrics" name="uselyrics" value="uselyrics">
 				<br />
-				Publish 'likes' on facebook <input type="checkbox" disabled id="publishonfacebook" name="publishonfacebook" value="false" ><br />
+				<input style="display:none" type="checkbox" id="publishonfacebook" name="publishonfacebook" value="publishonfacebook"><br />
 				Use internal proxy <input disabled type="checkbox" id="useInternalProxy" name="useInternalProxy" value="false"><br />
 				<input type="button" id="SaveSettings" value="Save!">
 				<input type="button" id="ClearCache" value="Clear Cache">
@@ -93,10 +99,11 @@
 				<p style="font-size:14px">
 					Demostration Ampache server: http://smellof.tk/ampachedemo/. User/Pass: guest
 				</p>
-				<span style='' id="versionLabel">0.4.24</span>
+				<span style='' id="versionLabel">v0.5.0</span>
 		</div>
 
-
+                <div id="tags" style="display: none;"></div>
+                
 	</div>
 	
 
