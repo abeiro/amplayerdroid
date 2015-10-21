@@ -206,17 +206,18 @@ LASTFM.prototype.updateTags=function(song) {
 
 		$("#myCanvas").fadeIn();
 
-		/*$.get(_lfm.LASTFM_URLWS+_lfm.buildRequest("artist.getinfo","&mbid="+song.artist_mbid)+"&format=json",
-		function (e) {
-			for (i in e.artist.image) {
-				if (e.artist.image[i].size=="medium") {
-					$("#tags").append("<a weight='100'><img id='tag"+i+"' style=''></a>")
-					conn.loadImageCached(e.artist.image[i]["#text"],_("tag"+i))
-					_("tag"+i).style.display="block";
+		if (_("showCanvasImg").src.indexOf("defaultbg")>2) {
+			$.get(_lfm.LASTFM_URLWS+_lfm.buildRequest("artist.getinfo","&mbid="+song.artist_mbid)+"&format=json",
+			function (e) {
+				for (i in e.artist.image) {
+					if (e.artist.image[i].size=="mega") {
+						conn.loadImageCached(e.artist.image[i]["#text"],_("showCanvasImg"))
+
+					}
 				}
-			}
-			setTimeout(function() {$('#myCanvas').tagcanvas("reload")},3000);
-		});*/
+				setTimeout(function() {$('#myCanvas').tagcanvas("reload")},3000);
+			});
+		}
 	} 
 	)
 }
@@ -266,7 +267,7 @@ function getAverageRGB(imgEl) {
     rgb.g = ~~(rgb.g/count);
     rgb.b = ~~(rgb.b/count);
 
-    return "rgb("+(rgb.r|128)+","+(rgb.g|128)+","+(rgb.b|128)+")";
+    return "rgb("+(rgb.r^255)+","+(rgb.g^255)+","+(rgb.b^255)+")";
 
 }
 
