@@ -71,6 +71,11 @@ function loadPlayList()
     //document.querySelector(".plButton").onclick=function() {conn.nextSong()}
     conn.loadImage("img/logo.png", _("art"));
     ceventFired(null);
+	
+    changeListModelMob(songlist,conn._songs.root.song);
+    changeDatalistModel(songlistSearch,conn._songs.root.song);
+    
+
 }
 function randomizePL() 
 {
@@ -127,6 +132,32 @@ function changeListModel(element,newopts) {
 	i=0;
 	for (var k in newopts) {
 		element.options[i++] = new Option(newopts[k],k);
+	}
+
+}
+
+function changeListModelMob(element,newopts) {
+	removeAllChilds(element);
+	for (j=0;j<newopts.length;j++) {
+		t=document.createElement("li");
+		t.innerHTML=(j+1)+". "+newopts[j].title +" :: "+newopts[j].artist;
+		t.setAttribute("songId",j);
+		t.idx=j;
+		t.onclick=function() {
+			conn.localplay(event.target.idx);
+		}
+		element.appendChild(t);
+	}
+
+}
+
+function changeDatalistModel(element,newopts) {
+	removeAllChilds(element);
+
+	for (j=0;j<newopts.length;j++) {
+		o=new Option(newopts[j].title,newopts[j].title);
+		element.appendChild(o);
+		
 	}
 
 }

@@ -21,28 +21,40 @@ function ucwords(str) {
 
 function extractLyrics() {
 
-	superstring="";
-	$("#lyricsCanvas").html(superstring)
-	re=/(&#[0-9]{1,4};)/gm;
-	if (!gUseInternalProxy)
-		lyrUrl="http://lyrics.wikia.com/"+conn._songs.root.song[currentSong].artist.replace(/ /g,"_")+":"+ucwords(conn._songs.root.song[currentSong].title).replace(/ /g,"_").replace(/'/g,"%27")
-	else
-		lyrUrl="proxy.php?url="+encodeURIComponent("http://lyrics.wikia.com/"+conn._songs.root.song[currentSong].artist.replace(/ /g,"_")+":"+conn._songs.root.song[currentSong].title.replace(/ /g,"_"));
+	try {
+		superstring="";
+		$("#lyricsCanvas").html(superstring)
+		re=/(&#[0-9]{1,4};)/gm;
+		if (!gUseInternalProxy)
+			lyrUrl="http://chicago.amplayer.xyz/wikia/?songname="+conn._songs.root.song[currentSong].artist.replace(/ /g,"_")+":"+ucwords(conn._songs.root.song[currentSong].title).replace(/ /g,"_").replace(/'/g,"%27")
+		else
+			lyrUrl="proxy.php?url="+encodeURIComponent("http://lyrics.wikia.com/"+conn._songs.root.song[currentSong].artist.replace(/ /g,"_")+":"+conn._songs.root.song[currentSong].title.replace(/ /g,"_"));
 
-	$.get(lyrUrl,function (e) {
-		pass1=e.replace(/<br[\s\S]\/>/mg,'&#182;')
+		$.get(lyrUrl,function (e) {
+			rex=/<div class='lyricbox'>(.*)</g
+			pass1=e.replace(/<br[\s\S]\/>/mg,'&#182;')
+			passx=pass1.match(rex);
+
+			pass2=passx[0].match(re);
+			if (pass2!=null) {
+				for (i=0;i<pass2.length;i++) {
+					superstring+=pass2[i]
+				};
+			} else {
+				superstring+=pass1;
+			}
+			pass3=superstring.replace(/&#182;/mg,'<br/>');
+			$("#lyricsCanvas").html(pass3);
 		
-		pass2=pass1.match(re);
-		
-		for (i=0;i<pass2.length;i++) {
-			superstring+=pass2[i]
-		};
-		pass3=superstring.replace(/&#182;/mg,'<br/>')
-		$("#lyricsCanvas").html(pass3)
+
 	} ).fail(function() {
 			console.log("No lyrics found");
 			$("#lyricsCanvas").html("No lyrics found")
 		});
+		} catch (idontcare) {
+			console.log(idontcare)
+
+		}
 
 }
 
@@ -72,7 +84,7 @@ function getBandInfo(iCallBack) {
 	$("#infoCanvasReal").html(superstring)
 	re=/(&#[0-9]{1,4};)/gm;
 
-	lyrUrl="https://musicbrainz.org/ws/2/artist/"+conn._songs.root.song[currentSong].artist_mbid+"?inc=url-rels&fmt=json";
+	lyrUrl="http://chicago.amplayer.xyz:8080/ws/2/artist/"+conn._songs.root.song[currentSong].artist_mbid+"?inc=url-rels&fmt=json";
 
 	if (gUseInternalProxy)
 		lyrUrl="proxy.php?url="+encodeURIComponent(lyrUrl);
