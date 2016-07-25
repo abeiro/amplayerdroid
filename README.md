@@ -16,13 +16,12 @@ Uses:
 
 * HTML5 audio tag capabilities
 * HTML5 localStorage (chrome.storage.local if used as an Chrome packaged APP)
-
 * Playlists from your Ampache Server
 * CD Covers from your Ampache Server
 * Fan art from http://fanart.tv
 * Musicbrainz info. http://musicbrainz.org/
 * Publish song "likes" on Facebook
-* Added initial support for lyrics (http://lyrics.wikia.com)
+* Support for lyrics (http://lyrics.wikia.com)
 
 
 Using it
@@ -44,6 +43,17 @@ LICENSING
 * xml2array.js			BSD-3 			http://www.openjs.com/scripts/xml_parser/
 * Cordova 				ASF				http://www.apache.org/licenses/LICENSE-2.0
 
+
+SOME NOTES ABOUT PRIVACY
+========================
+
+Since version 0.6, all traffic to musicbrainz is proxied through chicago.amplayer.xyz. This proxy routes traffic
+to 3 musicbrainz mirrors. Reason is musicbrainz server is returning errors (too many connections) lately.
+
+Traffic to lyrics wikia is proxied too, since content given by this server changes according to browser user agent,
+which made service unusable from cellphones.
+
+Anyway, all traffic is anonymous and no personal data is stored in this proxy.
 
 
 
