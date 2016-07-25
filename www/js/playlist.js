@@ -73,7 +73,10 @@ function loadPlayList()
     ceventFired(null);
 	
     changeListModelMob(songlist,conn._songs.root.song);
+    
+    simpleplaylistCtl.value=""
     changeDatalistModel(songlistSearch,conn._songs.root.song);
+    //simpleplaylistCtl.focus();
     
 
 }
@@ -136,9 +139,15 @@ function changeListModel(element,newopts) {
 
 }
 
-function changeListModelMob(element,newopts) {
+function changeListModelMob(element,newopts,filter) {
 	removeAllChilds(element);
+	ul=document.createElement("ul");
+	element.appendChild(ul);
 	for (j=0;j<newopts.length;j++) {
+		if (filter !=null) {
+			if (newopts[j].title.indexOf(filter)==-1)
+			continue;
+		}
 		t=document.createElement("li");
 		t.innerHTML=(j+1)+". "+newopts[j].title +" :: "+newopts[j].artist;
 		t.setAttribute("songId",j);
@@ -146,18 +155,23 @@ function changeListModelMob(element,newopts) {
 		t.onclick=function() {
 			conn.localplay(event.target.idx);
 		}
-		element.appendChild(t);
+		ul.appendChild(t);
 	}
 
 }
 
-function changeDatalistModel(element,newopts) {
+function changeDatalistModel(element,newopts,filter) {
 	removeAllChilds(element);
 
 	for (j=0;j<newopts.length;j++) {
-		o=new Option(newopts[j].title,newopts[j].title);
+		if (filter !=null) {
+			if (newopts[j].title.indexOf(filter)==-1)
+			continue;
+		}
+		o=new Option("",newopts[j].title);
 		element.appendChild(o);
 		
 	}
+
 
 }

@@ -22,7 +22,7 @@ function ucwords(str) {
 function extractLyrics() {
 
 	try {
-		superstring="";
+		superstring="Loading the lyrics..."; 
 		$("#lyricsCanvas").html(superstring)
 		re=/(&#[0-9]{1,4};)/gm;
 		if (!gUseInternalProxy)
@@ -34,17 +34,22 @@ function extractLyrics() {
 			rex=/<div class='lyricbox'>(.*)</g
 			pass1=e.replace(/<br[\s\S]\/>/mg,'&#182;')
 			passx=pass1.match(rex);
-
-			pass2=passx[0].match(re);
-			if (pass2!=null) {
-				for (i=0;i<pass2.length;i++) {
-					superstring+=pass2[i]
-				};
-			} else {
-				superstring+=pass1;
+			superstring="";
+			try {
+				pass2=passx[0].match(re);
+				if (pass2!=null) {
+					for (i=0;i<pass2.length;i++) {
+						superstring+=pass2[i]
+					};
+				} else {
+					superstring+=pass1;
+				}
+				pass3=superstring.replace(/&#182;/mg,'<br/>');
+				$("#lyricsCanvas").html("<br/>");
+				$("#lyricsCanvas").html(pass3);
+			} catch (idontcare) {
+				console.log(idontcare)
 			}
-			pass3=superstring.replace(/&#182;/mg,'<br/>');
-			$("#lyricsCanvas").html(pass3);
 		
 
 	} ).fail(function() {
@@ -80,7 +85,7 @@ function extractDomain(url) {
 
 function getBandInfo(iCallBack) {
 	////*[@id="mw-content-text"]/table[1]/tbody/tr/td[2]/table
-	superstring="";
+	superstring="Loading info...";
 	$("#infoCanvasReal").html(superstring)
 	re=/(&#[0-9]{1,4};)/gm;
 
@@ -106,7 +111,8 @@ function showInfo() {
 		console.log("Callback showInfo:"+data);
 		buffer="";
 		$("#infoCanvasReal").hide();
-		$("#infoCanvasReal").html('');
+		$("#infoCanvasReal").html('Loading info');
+
 		for (i in data.relations) { 
 			//console.log(data.relations[i]);
 			item=data.relations[i];

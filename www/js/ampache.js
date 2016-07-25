@@ -360,7 +360,7 @@ AMPACHE.prototype.localplay = function (songnumber) {
 	
 
 	
-	showPopup(this._songs.root.song[songnumber].art, this._songs.root.song[songnumber].title, this._songs.root.song[songnumber].artist + " :: " + this._songs.root.song[songnumber].album);
+	//showPopup(this._songs.root.song[songnumber].art, this._songs.root.song[songnumber].title, this._songs.root.song[songnumber].artist + " :: " + this._songs.root.song[songnumber].album);
 	console.log("Cache: "+this.cacheCounter.miss+ " misses "+this.cacheCounter.hit+" hits ");
 
 	try {
@@ -600,6 +600,8 @@ function disposeElements() {
 			$("#playlist").show();
 		}
 		
+		//$('#ampacheplayer').css("width","100%");
+		
         $('#myCanvas').tagcanvas({
           					textColour: '#ffffff',
           					outlineColour: '#ffffff',
@@ -711,6 +713,14 @@ function initSystem() {
 	});
 	
 	_("cLastFM").style.opacity=0.5;
+
+
+	$("#art").on("load",function() { 
+		showPopup(	conn._songs.root.song[currentSong].art, 
+					conn._songs.root.song[currentSong].title, 
+					conn._songs.root.song[currentSong].artist + " :: " + conn._songs.root.song[currentSong].album); 
+					});
+
 	
 	_("fullScreenButton").addEventListener("click", function () {
 		if (!this.isFullScreen) {
@@ -733,18 +743,25 @@ function initSystem() {
 		}
 		
 	});
+	
+	$('#simpleplaylistCtl').bind('input', function() {
+		
+    	
+	});
 
 	/*_("songlist").addEventListener("change", function (e) { 
 		console.log("playing"+e);
 		conn.localplay(event.target.value);
 
-	});
+	});*/
 
 	_("simpleplaylistCtl").addEventListener("change", function (e) { 
-		console.log("playing"+e);
-		conn.localplay(event.target.idx);
+		 changeListModelMob(songlist,conn._songs.root.song,_("simpleplaylistCtl").value);
+    	 changeDatalistModel(songlistSearch,conn._songs.root.song,_("simpleplaylistCtl").value);
+		
+		//conn.localplay(event.target.idx);
 
-	});*/
+	});
 
 
 	// Load preferences

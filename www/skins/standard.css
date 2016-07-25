@@ -190,6 +190,7 @@ div.plButton:hover {
 	padding:15px;
 	font-size:x-large;
 	font-family: Montserrat;
+	z-index: 5;
 }
 
 #settings *{
@@ -248,21 +249,23 @@ div.plButton:hover {
 #playlistselect {
 	position: absolute;
 	right: 300px;
-	top: 150px;
+	top: 145px;
 	background-color: white;
 	color: gray;
 	border-radius: 5px;
 	max-width:280px;
+	height: 32px;
 }
 
 #playlistalbum {
 	position: absolute;
 	right: 10px;
-	top: 150px;
+	top: 145px;
 	background-color: white;
 	color: gray;
 	border-radius: 5px;
 	max-width:280px;
+	height: 32px;
 }
 
 #fullScreenButton {
@@ -407,4 +410,20 @@ html:fullscreen {
 }
 #songlist {
 	display:none;
+}
+
+audio::-webkit-media-controls-panel {
+	background-color: white;
+	opacity: 0.8;
+}
+
+audio::-webkit-media-controls-play-button {
+	color: white;
+	/* background-color: white; */
+}
+
+#ampacheplayer {
+	/* height:48px; */
+	zoom: 1.1;
+	width: 300px;
 }
